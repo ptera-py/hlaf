@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ username }}
+    <div>Меню
+        <div><a href="{% url 'metrics:menu' %}">Метрики</a></div>
+        <div  style="margin-left: 10px  "><a href="{% url 'metrics:weighs_editor' %}">Вес</a></div>
+        <!--
+        <div><a href="#">Органайзер</a></div>
+        <div style="margin-left: 10px  "><a href="#">Сколерозник</a></div>
+        <div style="margin-left: 10px  "><a href="#">МастРид</a></div>
+        -->
+        <div><a href="#">Настройки</a></div>
+        <div style="margin-left: 10px  "><a href="{% url 'index:master_data' %}">Личность</a></div>
+    </div>
+    <div>
+        <hr>
+        <div><a href="/auth/login">Авторизация</a></div>
+        <div><a href="/auth/logout">Выйти</a></div>
+    </div>
+</body>
+</html>
