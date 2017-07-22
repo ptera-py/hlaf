@@ -23,7 +23,7 @@ def f_weighs_editor(request):
         hum_we.weighs_N = human.weighs_set.order_by('-m_date')[:10]
         list_hum_we.append(hum_we)
 
-    context = {'username':request.user.username, 'list_hum_we':list_hum_we}
+    context = {'user_obj':request.user, 'list_hum_we':list_hum_we}
     return render(request, 'metrics/weighs_redactor.html', context)
 
 #Добавить вес

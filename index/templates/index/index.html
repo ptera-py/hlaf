@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <style>
+        /* внешние границы таблицы серого цвета толщиной 1px */
+        table {border: 1px solid grey;}
+        /* границы ячеек первого ряда таблицы */
+        th {border: 1px solid grey;}
+        /* границы ячеек тела таблицы */
+        td {border: 1px solid grey;}
+    </style>
     <title>Title</title>
 </head>
 <body>
-    {% if username %}
-    <div>Привет {{ username }}!</div>
-    {% endif %}
-    <div>Меню
+    <div style="float: right; padding-right: 10mm">
+        {% if user_obj.username %}
+            <div>Привет {{ user_obj.username }}!</div>
+            <a href="/auth/logout">Выйти</a>
+        {% else %}
+            <a href="/auth/login">Авторизация</a>
+        {% endif %}
+    </div>
+    <div style="float: left; padding-right: 10mm">Меню
         <div><a href="{% url 'metrics:menu' %}">Метрики</a></div>
         <div  style="margin-left: 10px  "><a href="{% url 'metrics:weighs_editor' %}">Вес</a></div>
         {% if user_obj.is_staff %}
@@ -19,13 +32,6 @@
         <div style="margin-left: 10px  "><a href="{% url 'index:master_data' %}">Личность</a></div>
         {% endif %}
     </div>
-    <div>
-        <hr>
-        {% if username %}
-        <div><a href="/auth/logout">Выйти</a></div>
-        {% else %}
-        <div><a href="/auth/login">Авторизация</a></div>
-        {% endif %}
-    </div>
+    <div id="content">{% block content %}{% endblock %}</div>
 </body>
 </html>

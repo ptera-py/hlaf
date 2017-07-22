@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        /* внешние границы таблицы серого цвета толщиной 1px */
-        table {border: 1px solid grey;}
-        /* границы ячеек первого ряда таблицы */
-        th {border: 1px solid grey;}
-        /* границы ячеек тела таблицы */
-        td {border: 1px solid grey;}
-    </style>
-</head>
-<body>
-    {% if username %}
-        <div style="text-align: right">{{ username }}</div>
-    {% endif %}
+{% extends "index/index.html" %}
+{% block content %}
 
-    {% for hum_we in list_hum_we %}
+{% for hum_we in list_hum_we %}
     <div style="float: left; padding-right: 10mm">
         <h3><a href="{% url 'metrics:person_metrics' hum_we.human.id %}">{{ hum_we.human.name }}</a></h3>
         <!--Вывод значений-->
@@ -28,7 +12,7 @@
                     <th>V</th><th>Вес, кг</th><th>Дата</th>
                     {% for Weigh in hum_we.weighs_N %}
                         <tr>
-                            <td>{% if username %}<input type="checkbox" name="weighs" id="weighs{{Weigh.id }}" value="{{ Weigh.id }}">{% endif %}</td>
+                            <td>{% if user_obj.username %}<input type="checkbox" name="weighs" id="weighs{{Weigh.id }}" value="{{ Weigh.id }}">{% endif %}</td>
                             <td>{{ Weigh.weigh }}</td>
                             <td>{{ Weigh.m_date }}</td>
                         </tr>
@@ -39,7 +23,7 @@
         </div>
 
         <!--Ввод значений-->
-        {% if username %}
+        {% if user_obj.username %}
         <form action="{% url 'metrics:weighs_insert' %}" method="post">
         {% csrf_token %}
             <div>
@@ -51,7 +35,6 @@
         </form>
         {% endif %}
     </div>
-    {% endfor %}
+{% endfor %}
+{% endblock %}
 
-</body>
-</html>
