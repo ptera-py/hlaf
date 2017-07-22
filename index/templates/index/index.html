@@ -5,22 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-    {{ username }}
+    {% if username %}
+    <div>Привет {{ username }}!</div>
+    {% endif %}
     <div>Меню
         <div><a href="{% url 'metrics:menu' %}">Метрики</a></div>
         <div  style="margin-left: 10px  "><a href="{% url 'metrics:weighs_editor' %}">Вес</a></div>
-        <!--
+        {% if user_obj.is_staff %}
         <div><a href="#">Органайзер</a></div>
         <div style="margin-left: 10px  "><a href="#">Сколерозник</a></div>
         <div style="margin-left: 10px  "><a href="#">МастРид</a></div>
-        -->
         <div><a href="#">Настройки</a></div>
         <div style="margin-left: 10px  "><a href="{% url 'index:master_data' %}">Личность</a></div>
+        {% endif %}
     </div>
     <div>
         <hr>
-        <div><a href="/auth/login">Авторизация</a></div>
+        {% if username %}
         <div><a href="/auth/logout">Выйти</a></div>
+        {% else %}
+        <div><a href="/auth/login">Авторизация</a></div>
+        {% endif %}
     </div>
 </body>
 </html>

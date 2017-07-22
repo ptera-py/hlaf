@@ -13,6 +13,7 @@
     </style>
 </head>
 <body>
+    {% if user_obj.is_staff %}
     <div>
         <h2>Humans</h2>
         <form action="{% url 'index:human_delete' %}" method="post">
@@ -21,15 +22,14 @@
                 <th>V</th><th>ID</th><th>Имя</th>
                 {% for human in humans %}
                 <tr>
-                    <td>{% if username %}<input type="checkbox" name="humans" id="humans{{ human.id }}" value="{{ human.id }}">{% endif %}</td>
+                    <td><input type="checkbox" name="humans" id="humans{{ human.id }}" value="{{ human.id }}"></td>
                     <td>{{ human.id }}</td>
                     <td>{{ human.name }}</td>
                 </tr>
                 {% endfor %}
             </table>
-            {% if username %}<input type="submit" value="Удалить">{% endif %}
+            <input type="submit" value="Удалить">
         </form>
-        {% if username %}
         <form action="{% url 'index:human_insert' %}" method="post">
             {% csrf_token %}
             <div>
@@ -38,7 +38,9 @@
             </div>
             <input type="submit" value="Добавить">
         </form>
-        {% endif %}
     </div>
+    {% else %}
+    <div>There are no content!</div>
+    {% endif %}
 </body>
 </html>

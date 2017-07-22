@@ -6,5 +6,3 @@ class Human(models.Model):
 
     def tt(self):
         return Human.objects.all()
-
-

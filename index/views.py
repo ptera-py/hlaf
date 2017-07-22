@@ -7,12 +7,13 @@ from .models import Human
 #Главная страничка
 def index(request):
     user = request.user.username
-    context = {'username':user}
+    user_obj = request.user
+    context = {'username':user, 'user_obj':user_obj}
     return render(request,'index/index.html',context)
 
 #Master data
 def master_data(request):
-    context ={'humans':Human.objects.all(), 'username':request.user.username}
+    context ={'humans':Human.objects.all(), 'username':request.user.username, 'user_obj':request.user}
     return render(request, 'index/master_data.html',context)
 
 #Human insert
