@@ -6,10 +6,8 @@ from .models import Human
 
 #Главная страничка
 def index(request):
-    rem = request.session.get_expire_at_browser_close()
-    dat = request.session.get_expiry_age()
     user_obj = request.user
-    context = {'user_obj':user_obj, 'rem':rem, 'dat':dat}
+    context = {'user_obj':user_obj,}
     return render(request,'index/index.html',context)
 
 #Master data
