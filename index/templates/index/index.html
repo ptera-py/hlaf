@@ -24,6 +24,7 @@
     <div style="float: left; padding-right: 10mm">Меню
         <div><a href="{% url 'metrics:menu' %}">Метрики</a></div>
         <div  style="margin-left: 10px  "><a href="{% url 'metrics:weighs_editor' %}">Вес</a></div>
+        <div  style="margin-left: 10px  "><a href="{% url 'metrics:fitness_editor' %}">Зарядка</a></div>
         {% if user_obj.is_staff %}
         <div><a href="#">Органайзер</a></div>
         <div style="margin-left: 10px  "><a href="#">Сколерозник</a></div>
