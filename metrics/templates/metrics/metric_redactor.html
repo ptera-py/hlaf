@@ -4,6 +4,23 @@
 {% for hum_me in list_hum_me %}
     <div style="float: left; padding-right: 10mm">
         <div style="font-weight: 600;">{{ hum_me.human.name }}</div>
+    <!--Ввод значений-->
+        {% if user_obj.username %}
+        <form action="{% url url_foradd %}" method="post">
+        {% csrf_token %}
+            <div style="background-color: RGB(225, 255, 144);">
+            {% for field in hum_me.model_fields %}
+            {% if forloop.counter0 > 2 %}
+                <label for="metric{{ hum_me.human.id }}">{{ field.verbose_name }}</label>
+                <input type="text" name="metric" id="metric{{ hum_me.human.id }}">
+            {% endif %}
+            {% endfor %}
+                <input type="hidden" name="human" value="{{ hum_me.human.id }}">
+                <input type="submit" value="Добавить">
+            </div>
+        </form>
+        {% endif %}
+
         <form action="{% url url_fordel %}" method="post">
             {% csrf_token %}
             <table>
@@ -20,7 +37,7 @@
                             {% if forloop.counter0 == 0 %}
                                 <td>{% if user_obj.username %}<input type="checkbox" name="metric" id="metric{{ metric }}" value="{{ metric }}">{% endif %}</td>
                             {% elif forloop.counter0 > 1 %}
-                                <td>{{ metric }}</td>
+                                <td><div>{{ metric }}</div></td>
                             {% endif %}
                         {% endfor %}
                     </tr>
@@ -28,23 +45,6 @@
             </table>
             {% if user_obj.username %}<input type="submit" value="Удалить">{% endif %}
         </form>
-
-        <!--Ввод значений-->
-        {% if user_obj.username %}
-        <form action="{% url url_foradd %}" method="post">
-        {% csrf_token %}
-            <div>
-            {% for field in hum_me.model_fields %}
-            {% if forloop.counter0 > 2 %}
-                <label for="metric{{ hum_me.human.id }}">{{ field.verbose_name }}</label>
-                <input type="text" name="metric" id="metric{{ hum_me.human.id }}">
-            {% endif %}
-            {% endfor %}
-                <input type="hidden" name="human" value="{{ hum_me.human.id }}">
-                <input type="submit" value="Добавить">
-            </div>
-        </form>
-        {% endif %}
     </div>
 
 {% endfor %}
