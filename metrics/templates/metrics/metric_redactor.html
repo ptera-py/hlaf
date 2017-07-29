@@ -1,10 +1,9 @@
 {% extends "index/index.html" %}
 {% block content %}
-
-    <h3>{{ caption }}</h3>
+    <div style="font-weight: 600; font-size: 150%;">{{ caption }}</div>
 {% for hum_me in list_hum_me %}
     <div style="float: left; padding-right: 10mm">
-        <h4>{{ hum_me.human.name }}</h4>
+        <div style="font-weight: 600;">{{ hum_me.human.name }}</div>
         <form action="{% url url_fordel %}" method="post">
             {% csrf_token %}
             <table>
