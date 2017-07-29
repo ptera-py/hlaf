@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 
 from index import models as index_mod
-from . import models
+from . import models, classes_for_templ
 
 #Меню редактирования метрик
 def f_menu(request):
@@ -13,51 +13,46 @@ def f_menu(request):
 
 #Редактор веса
 def f_weighs_editor(request):
-    class Hum_We(): #Класс для передачи персоны + N последних взвешиваний
-        human = '' #Содержит объект - персону
-        weighs_N = '' #Содержит N объектов последних взвешиваний, связанных с human
-    list_hum_we=[] #Список объектов Hum_We
+    list_hum_me=[] #Список объектов Hum_Me (Human + Metric)
     for human in index_mod.Human.objects.all():
-        hum_we = Hum_We()
-        hum_we.human = human
-        hum_we.weighs_N = human.weighs_set.order_by('-m_date')[:10]
-        list_hum_we.append(hum_we)
-
-    context = {'user_obj':request.user, 'list_hum_we':list_hum_we}
-    return render(request, 'metrics/weighs_redactor.html', context)
+        list_hum_me.append(classes_for_templ.OneMetric(human, human.weighs_set))
+    url_fordel = 'metrics:weighs_delete'
+    url_foradd = 'metrics:weighs_insert'
+    caption = 'Вес'
+    context = {'user_obj':request.user, 'list_hum_me':list_hum_me, 'url_fordel':url_fordel, 'url_foradd':url_foradd, 'caption':caption}
+    return render(request, 'metrics/metric_redactor.html', context)
 
 #Добавить вес
 def f_weigh_add(request):
     human = get_object_or_404(index_mod.Human, pk=request.POST['human'])
-    human.weighs_set.create(weigh=request.POST['weigh'].replace(',', '.'),m_date=timezone.now())
+    human.weighs_set.create(weigh=request.POST['metric'].replace(',', '.'),m_date=timezone.now())
     return HttpResponseRedirect(reverse('metrics:weighs_editor'))
 
 #Удалить вес
 def f_weigh_dell(request):
-    for weigh_id in request.POST.getlist('weighs'):
-        weigh = models.Weighs.objects.get(pk=weigh_id)
+    for metric_id in request.POST.getlist('metric'):
+        weigh = models.Weighs.objects.get(pk=metric_id)
         weigh.delete()
     return HttpResponseRedirect(reverse('metrics:weighs_editor'))
 
-#Представление для вывода всех индивидуальных метрик по одному человеку
+######Представление для вывода всех индивидуальных метрик по одному человеку
 def f_all_person_metrics(request, human_id):
     human = get_object_or_404(index_mod.Human, pk=human_id)
     weighs = human.weighs_set.order_by('-m_date')
     context = {'Human':human, 'Weighs':weighs}
     return render(request,'metrics/person_weighs.html',context)
+#############################################################################################
 
 #Представление для ввода зарядки
 def f_fitness_edit(request):
-    class Hum_Fi():
-        def __init__(self, hum, fit):
-            self.human = hum
-            self.fitness = fit
-    l_hum_fi = []
+    list_hum_me=[] #Список объектов Hum_Me (Human + Metric)
     for human in index_mod.Human.objects.all():
-        hum_fi = Hum_Fi(human,human.fitness_set.order_by('-m_date'))
-        l_hum_fi.append(hum_fi)
-    context = {'user_obj':request.user, 'l_hum_fi':l_hum_fi}
-    return render(request, 'metrics/fitness_redactor.html', context)
+        list_hum_me.append(classes_for_templ.OneMetric(human, human.fitness_set))
+    url_fordel = 'metrics:fitness_delete'
+    url_foradd = 'metrics:fitness_insert'
+    caption = 'Зарядка'
+    context = {'user_obj':request.user, 'list_hum_me':list_hum_me, 'url_fordel':url_fordel, 'url_foradd':url_foradd, 'caption':caption}
+    return render(request, 'metrics/metric_redactor.html', context)
 
 #Добавить зарядку
 def f_fitness_add(request):
@@ -66,7 +61,7 @@ def f_fitness_add(request):
     return HttpResponseRedirect(reverse('metrics:fitness_editor'))
 
 def f_fitness_dell(request):
-    for fitness_id in request.POST.getlist('fitness'):
+    for fitness_id in request.POST.getlist('metric'):
         fitness = models.Fitness.objects.get(pk=fitness_id)
         fitness.delete()
     return HttpResponseRedirect(reverse('metrics:fitness_editor'))
