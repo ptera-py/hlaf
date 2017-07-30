@@ -1,9 +1,15 @@
 {% extends "index/index.html" %}
 {% block content %}
-    <div style="font-weight: 600; font-size: 150%;">{{ caption }}</div>
+    <div style="font-weight: 600; font-size: 150%;">{{ caption.0 }}</div>
 {% for hum_me in list_hum_me %}
     <div style="float: left; padding-right: 10mm">
-        <div style="font-weight: 600;">{{ hum_me.human.name }}</div>
+        <div style="font-weight: 600;">
+            {% if caption.1 %}
+                <a href="{{ hum_me.human.id }}">{{ hum_me.human.name }}</a>
+            {% else %}
+                {{ hum_me.human.name }}
+            {% endif %}
+        </div>
     <!--Ввод значений-->
         {% if user_obj.username %}
         <form action="{% url url_foradd %}" method="post">
@@ -31,7 +37,7 @@
                         <th>{{ field.verbose_name }}</th>
                     {% endif %}
                 {% endfor %}
-                {% for metrics_l in hum_me.metric_10_l %}
+                {% for metrics_l in hum_me.metric_N_l %}
                     <tr>
                         {% for metric in metrics_l %}
                             {% if forloop.counter0 == 0 %}
@@ -46,6 +52,5 @@
             {% if user_obj.username %}<input type="submit" value="Удалить">{% endif %}
         </form>
     </div>
-
 {% endfor %}
 {% endblock %}

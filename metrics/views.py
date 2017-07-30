@@ -18,8 +18,10 @@ def f_weighs_editor(request):
         list_hum_me.append(classes_for_templ.OneMetric(human, human.weighs_set))
     url_fordel = 'metrics:weighs_delete'
     url_foradd = 'metrics:weighs_insert'
-    caption = 'Вес'
-    context = {'user_obj':request.user, 'list_hum_me':list_hum_me, 'url_fordel':url_fordel, 'url_foradd':url_foradd, 'caption':caption}
+    caption = ['Вес',1]
+    context = {
+        'user_obj':request.user, 'list_hum_me':list_hum_me, 'url_fordel':url_fordel, 'url_foradd':url_foradd, 'caption':caption,
+    }
     return render(request, 'metrics/metric_redactor.html', context)
 
 #Добавить вес
@@ -39,8 +41,15 @@ def f_weigh_dell(request):
 def f_all_person_metrics(request, human_id):
     human = get_object_or_404(index_mod.Human, pk=human_id)
     weighs = human.weighs_set.order_by('-m_date')
-    context = {'Human':human, 'Weighs':weighs}
-    return render(request,'metrics/person_weighs.html',context)
+    list_hum_me=[] #Список объектов Hum_Me (Human + Metric)
+    list_hum_me.append(classes_for_templ.OneMetric(human, weighs, None))
+    url_fordel = 'metrics:weighs_delete'
+    url_foradd = 'metrics:weighs_insert'
+    caption = ['Вес',0]
+    context = {
+        'user_obj':request.user, 'list_hum_me':list_hum_me, 'url_fordel':url_fordel, 'url_foradd':url_foradd, 'caption':caption,
+    }
+    return render(request,'metrics/metric_redactor.html',context)
 #############################################################################################
 
 #Представление для ввода зарядки
@@ -50,7 +59,7 @@ def f_fitness_edit(request):
         list_hum_me.append(classes_for_templ.OneMetric(human, human.fitness_set))
     url_fordel = 'metrics:fitness_delete'
     url_foradd = 'metrics:fitness_insert'
-    caption = 'Зарядка'
+    caption = ['Зарядка',1]
     context = {'user_obj':request.user, 'list_hum_me':list_hum_me, 'url_fordel':url_fordel, 'url_foradd':url_foradd, 'caption':caption}
     return render(request, 'metrics/metric_redactor.html', context)
 
