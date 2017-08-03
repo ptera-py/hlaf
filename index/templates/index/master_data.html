@@ -2,26 +2,26 @@
 {% block content %}
 {% if user_obj.is_staff %}
     <div>
-        <h2>Humans</h2>
-        <form action="{% url 'index:human_delete' %}" method="post">
+        <h2>{{ caption }}</h2>
+        <form action="{% url url_fordel %}" method="post">
             {% csrf_token %}
             <table>
                 <th>V</th><th>ID</th><th>Имя</th>
-                {% for human in humans %}
+                {% for essence in essences %}
                 <tr>
-                    <td><input type="checkbox" name="humans" id="humans{{ human.id }}" value="{{ human.id }}"></td>
-                    <td>{{ human.id }}</td>
-                    <td>{{ human.name }}</td>
+                    <td><input type="checkbox" name="essences" id="essences{{ essence.id }}" value="{{ essence.id }}"></td>
+                    <td>{{ essence.id }}</td>
+                    <td>{{ essence.name }}</td>
                 </tr>
                 {% endfor %}
             </table>
             <input type="submit" value="Удалить">
         </form>
-        <form action="{% url 'index:human_insert' %}" method="post">
+        <form action="{% url url_foradd %}" method="post">
             {% csrf_token %}
             <div>
-                <label for="human_name">Имя</label>
-                <input type="text" name="human_name" id="human_name">
+                <label for="essence_name">Имя</label>
+                <input type="text" name="essence_name" id="essence_name">
                 <input type="submit" value="Добавить">
             </div>
         </form>

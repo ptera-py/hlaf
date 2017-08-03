@@ -26,11 +26,13 @@
         <div  style="margin-left: 10px  "><a href="{% url 'metrics:weighs_editor' %}">Вес</a></div>
         <div  style="margin-left: 10px  "><a href="{% url 'metrics:fitness_editor' %}">Зарядка</a></div>
         {% if user_obj.is_staff %}
+            <div  style="margin-left: 10px  "><a href="{% url 'metrics:flowmeter_editor' %}">Счётчики</a></div>
         <div><a href="#">Органайзер</a></div>
         <div style="margin-left: 10px  "><a href="#">Сколерозник</a></div>
         <div style="margin-left: 10px  "><a href="#">МастРид</a></div>
         <div><a href="#">Настройки</a></div>
         <div style="margin-left: 10px  "><a href="{% url 'index:master_data' %}">Личность</a></div>
+            <div style="margin-left: 10px  "><a href="{% url 'index:flowmeter_editor' %}">Счётчики</a></div>
         {% endif %}
     </div>
     <div id="content">{% block content %}{% endblock %}</div>
