@@ -85,6 +85,25 @@ def f_all_person_fitness(request, human_id):
 ####################################################################################################
 
 #Ввод данных по счётчикам
-def f_flowmeter_edit(request):
-    b = models.Fitness.objects.all()
-    return HttpResponse(str(b))
+def f_indicate_edit(request):
+    list_hum_me = []  # Список объектов Hum_Me (Human + Metric)
+    for flowmeter in index_mod.Flowmeter.objects.all():
+        list_hum_me.append(classes_for_templ.OneMetric(flowmeter, flowmeter.indication_set,None))
+    url_fordel = 'metrics:indicate_delete'
+    url_foradd = 'metrics:indicate_insert'
+    caption = ['Показания', 0]
+    date_format = 's'
+    context = {'user_obj': request.user, 'list_hum_me': list_hum_me, 'url_fordel': url_fordel, 'url_foradd': url_foradd,
+               'caption': caption, 'date_format':date_format}
+    return render(request, 'metrics/metric_redactor.html', context)
+#Добавить показания
+def f_indicate_add(request):
+    flowmeter = get_object_or_404(index_mod.Flowmeter, pk=request.POST['human'])
+    flowmeter.indication_set.create(indicate=request.POST['metric'].replace(',', '.'),m_date=timezone.now())
+    return HttpResponseRedirect(reverse('metrics:indicate_editor'))
+#Удалить показания
+def f_indicate_dell(request):
+    for indicate_id in request.POST.getlist('metric'):
+        indicate = models.Indication.objects.get(pk=indicate_id)
+        indicate.delete()
+    return HttpResponseRedirect(reverse('metrics:indicate_editor'))

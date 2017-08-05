@@ -13,5 +13,4 @@ urlpatterns = [
     url(r'^master_data/flowmeter$', views.f_flowmeter_editor, name='flowmeter_editor'),#flowmeter_editor
     url(r'^master_data/flowmeter_insert', views.f_flowmeter_insert, name='flowmeter_insert'), #for flowmeter insert
     url(r'^master_data/flowmeter_delete', views.f_flowmeter_delete, name='flowmeter_delete'), #for flowmeter delete
-
 ]

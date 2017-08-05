@@ -18,11 +18,11 @@
             {% for field in hum_me.model_fields %}
             {% if forloop.counter0 > 2 %}
                 <label for="metric{{ hum_me.human.id }}">{{ field.verbose_name }}</label>
-                <input type="text" name="metric" id="metric{{ hum_me.human.id }}">
+                <input class="add" type="text" name="metric" id="metric{{ hum_me.human.id }}">
             {% endif %}
             {% endfor %}
                 <input type="hidden" name="human" value="{{ hum_me.human.id }}">
-                <input type="submit" value="Добавить">
+                <input type="submit" value="+">
             </div>
         </form>
         {% endif %}
@@ -42,7 +42,13 @@
                         {% for metric in metrics_l %}
                             {% if forloop.counter0 == 0 %}
                                 <td>{% if user_obj.username %}<input type="checkbox" name="metric" id="metric{{ metric }}" value="{{ metric }}">{% endif %}</td>
-                            {% elif forloop.counter0 > 1 %}
+                            {% elif forloop.counter0 == 2 %}
+                                {% if date_format == "s" %}
+                                    <td><div>{{ metric|date:"d.m.Y" }}<br><i>{{ metric|date:"H:i" }}</i></div></td>
+                                {% else %}
+                                    <td><div>{{ metric }}</div></td>
+                                {% endif %}
+                            {% elif forloop.counter0 > 2 %}
                                 <td><div>{{ metric }}</div></td>
                             {% endif %}
                         {% endfor %}

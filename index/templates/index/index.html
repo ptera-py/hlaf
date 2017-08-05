@@ -9,6 +9,8 @@
         th {border: 1px solid grey;}
         /* границы ячеек тела таблицы */
         td {border: 1px solid grey;}
+        /* размер текстового поля */
+        .add {width: 70px; /* Ширина в пикселах */}
     </style>
     <title>Title</title>
 </head>
@@ -26,7 +28,7 @@
         <div  style="margin-left: 10px  "><a href="{% url 'metrics:weighs_editor' %}">Вес</a></div>
         <div  style="margin-left: 10px  "><a href="{% url 'metrics:fitness_editor' %}">Зарядка</a></div>
         {% if user_obj.is_staff %}
-            <div  style="margin-left: 10px  "><a href="{% url 'metrics:flowmeter_editor' %}">Счётчики</a></div>
+            <div  style="margin-left: 10px  "><a href="{% url 'metrics:indicate_editor' %}">Счётчики</a></div>
         <div><a href="#">Органайзер</a></div>
         <div style="margin-left: 10px  "><a href="#">Сколерозник</a></div>
         <div style="margin-left: 10px  "><a href="#">МастРид</a></div>

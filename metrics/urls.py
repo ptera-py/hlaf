@@ -23,6 +23,10 @@ urlpatterns = [
     url(r'^fitness/(?P<human_id>[0-9]+)/$', views.f_all_person_fitness, name='person_fitnesses'),
 
     #flowmeter edit
-    url(r'^flowmeter/$', views.f_flowmeter_edit, name='flowmeter_editor'),
+    url(r'^indicate/$', views.f_indicate_edit, name='indicate_editor'),
+    #add fitness
+    url(r'^indicate_insert/$', views.f_indicate_add, name='indicate_insert'),
+    #delete indicate
+    url(r'^indicate_delete/$', views.f_indicate_dell, name='indicate_delete'),
 
 ]
