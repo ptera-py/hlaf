@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 
 from index import models as index_mod
 from . import models, classes_for_templ
+from . import func_lib
 
 #Меню редактирования метрик
 def f_menu(request):
@@ -30,10 +31,7 @@ def f_weigh_add(request):
     return HttpResponseRedirect(reverse('metrics:weighs_editor'))
 #Удалить вес
 def f_weigh_dell(request):
-    for metric_id in request.POST.getlist('metric'):
-        weigh = models.Weighs.objects.get(pk=metric_id)
-        weigh.delete()
-    return HttpResponseRedirect(reverse('metrics:weighs_editor'))
+    return func_lib.fl_obj_delete(request,models.Weighs,'metrics:weighs_editor')
 #Представление для вывода всех индивидуальных метрик по одному человеку
 def f_all_person_metrics(request, human_id):
     human = get_object_or_404(index_mod.Human, pk=human_id)
@@ -65,10 +63,7 @@ def f_fitness_add(request):
     human.fitness_set.create(m_date=timezone.now())
     return HttpResponseRedirect(reverse('metrics:fitness_editor'))
 def f_fitness_dell(request):
-    for fitness_id in request.POST.getlist('metric'):
-        fitness = models.Fitness.objects.get(pk=fitness_id)
-        fitness.delete()
-    return HttpResponseRedirect(reverse('metrics:fitness_editor'))
+    return func_lib.fl_obj_delete(request,models.Fitness,'metrics:fitness_editor')
 #Представление для вывода всех индивидуальных метрик по одному человеку
 def f_all_person_fitness(request, human_id):
     human = get_object_or_404(index_mod.Human, pk=human_id)
@@ -86,7 +81,7 @@ def f_all_person_fitness(request, human_id):
 
 #Ввод данных по счётчикам
 def f_indicate_edit(request):
-    list_hum_me = []  # Список объектов Hum_Me (Human + Metric)
+    list_hum_me = []  # Список объектов Hum_Me (Flowmeter + Metric)
     for flowmeter in index_mod.Flowmeter.objects.all():
         list_hum_me.append(classes_for_templ.OneMetric(flowmeter, flowmeter.indication_set,None))
     url_fordel = 'metrics:indicate_delete'
@@ -103,7 +98,26 @@ def f_indicate_add(request):
     return HttpResponseRedirect(reverse('metrics:indicate_editor'))
 #Удалить показания
 def f_indicate_dell(request):
-    for indicate_id in request.POST.getlist('metric'):
-        indicate = models.Indication.objects.get(pk=indicate_id)
-        indicate.delete()
-    return HttpResponseRedirect(reverse('metrics:indicate_editor'))
+    return func_lib.fl_obj_delete(request, models.Indication, 'metrics:indicate_editor')
+##########################################################################################################
+
+#Ввод данных по коммунальным тарифам
+def f_communal_edit(request):
+    list_hum_me = []  # Список объектов Hum_Me (Flowmeter + Metric)
+    for flowmeter in index_mod.Flowmeter.objects.all():
+        list_hum_me.append(classes_for_templ.OneMetric(flowmeter, flowmeter.communal_set, None))
+    url_fordel = 'metrics:communal_delete'
+    url_foradd = 'metrics:communal_insert'
+    date_format = 's'
+    caption = ['Тарифы', 0]
+    context = {'user_obj': request.user, 'list_hum_me': list_hum_me, 'url_fordel': url_fordel, 'url_foradd': url_foradd,
+               'caption': caption, 'date_format':date_format}
+    return render(request, 'metrics/metric_redactor.html', context)
+#Добавить тариф
+def f_communal_add(request):
+    flowmeter = get_object_or_404(index_mod.Flowmeter, pk=request.POST['human'])
+    flowmeter.communal_set.create(tarif=request.POST['metric'].replace(',', '.'),m_date=timezone.now())
+    return HttpResponseRedirect(reverse('metrics:communal_editor'))
+#Удалить тариф
+def f_communal_dell(request):
+    return func_lib.fl_obj_delete(request, models.Communal, 'metrics:communal_editor')

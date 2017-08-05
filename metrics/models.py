@@ -16,3 +16,8 @@ class Indication(models.Model):
     flowmeter = models.ForeignKey(index_mod.Flowmeter, on_delete=models.CASCADE)
     m_date = models.DateTimeField('Дата')
     indicate = models.FloatField('Показания')
+
+class Communal(models.Model):
+    flowmeter = models.ForeignKey(index_mod.Flowmeter, on_delete=models.CASCADE)
+    m_date = models.DateTimeField('Дата')
+    tarif = models.FloatField('Тариф')

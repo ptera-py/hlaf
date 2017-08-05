@@ -24,9 +24,17 @@ urlpatterns = [
 
     #flowmeter edit
     url(r'^indicate/$', views.f_indicate_edit, name='indicate_editor'),
-    #add fitness
+    #add indicate
     url(r'^indicate_insert/$', views.f_indicate_add, name='indicate_insert'),
     #delete indicate
     url(r'^indicate_delete/$', views.f_indicate_dell, name='indicate_delete'),
+
+    # communal edit
+    url(r'^communal/$', views.f_communal_edit, name='communal_editor'),
+    # add communal
+    url(r'^communal_insert/$', views.f_communal_add, name='communal_insert'),
+    # delete communal
+    url(r'^communal_delete/$', views.f_communal_dell, name='communal_delete'),
+
 
 ]
