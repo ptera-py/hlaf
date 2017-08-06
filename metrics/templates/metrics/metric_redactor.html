@@ -10,10 +10,10 @@
                 {{ hum_me.human.name }}
             {% endif %}
         </div>
-{% if caption.0 != 'Зарядка' %}
+{% if caption.0 == 'Вес' %}
     {% if caption.1 == 1 %}
     <!--График-->
-    <div id="chart_div{{ hum_me.human.id }}" style="width: 200px; height: 100px;"></div>
+    <div id="chart_div{{ hum_me.human.id }}" style="width: 230px; height: 100px;"></div>
         <script type="text/javascript">
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawChart);
@@ -32,7 +32,7 @@
                 ]);
                 var options = {
                     legend: {position: 'top'},
-                    chartArea:{left:15,top:15,width:'100%',height:'75%'},
+                    chartArea:{left:25,top:15,width:'100%',height:'75%'},
                     vAxis: {viewWindowMode:'maximized'},
                     hAxis: {direction: -1},
                 };
