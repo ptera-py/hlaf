@@ -31,9 +31,10 @@
 {% endfor %}
                 ]);
                 var options = {
-                    vAxis: {minValue: 0},
                     legend: {position: 'top'},
                     chartArea:{left:15,top:15,width:'100%',height:'75%'},
+                    vAxis: {viewWindowMode:'maximized'},
+                    hAxis: {direction: -1},
                 };
                 var chart = new google.visualization.AreaChart(document.getElementById('chart_div{{ hum_me.human.id }}'));
                 chart.draw(data, options);
