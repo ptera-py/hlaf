@@ -14,7 +14,7 @@
         {% if user_obj.username %}
         <form action="{% url url_foradd %}" method="post">
         {% csrf_token %}
-            <div style="background-color: RGB(225, 255, 144);">
+            <div class="input-block">
             {% for field in hum_me.model_fields %}
             {% if forloop.counter0 > 2 %}
                 <label for="metric{{ hum_me.human.id }}">{{ field.verbose_name }}</label>
@@ -22,7 +22,7 @@
             {% endif %}
             {% endfor %}
                 <input type="hidden" name="human" value="{{ hum_me.human.id }}">
-                <input type="submit" value="+">
+                <input type="submit" class="btn btn-info" value="+">
             </div>
         </form>
         {% endif %}
@@ -49,13 +49,13 @@
                                     <td><div>{{ metric }}</div></td>
                                 {% endif %}
                             {% elif forloop.counter0 > 2 %}
-                                <td><div>{{ metric }}</div></td>
+                                <td><div style="float: right;">{{ metric }}</div></td>
                             {% endif %}
                         {% endfor %}
                     </tr>
                 {% endfor %}
             </table>
-            {% if user_obj.username %}<input type="submit" value="Удалить">{% endif %}
+            {% if user_obj.username %}<input type="submit" class="btn btn-info" value="Удалить">{% endif %}
         </form>
     </div>
 {% endfor %}

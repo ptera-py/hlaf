@@ -1,3 +1,25 @@
-a {
-        color: #003366;
-    }
+/* внешние границы таблицы серого цвета толщиной 1px */
+table {
+    border: 2px solid black;
+}
+/* границы ячеек первого ряда таблицы */
+th {
+    border: 2px solid black;
+    background-color: #a3befd;
+    padding: 2px;
+}
+/* границы ячеек тела таблицы */
+td {
+    border: 2px solid grey;
+    padding: 2px;
+}
+/* размер текстового поля */
+.add {width: 70px; /* Ширина в пикселах */}
+/* все ссылки */
+a {}
+/* Туловище */
+body {
+    background: linear-gradient(to bottom, #C5DDE8 90%, #EECFBA) no-repeat center center fixed
+}
+/* блок с вводом */
+.input-block {background-color: #9bffab;}
