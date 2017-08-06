@@ -19,7 +19,9 @@ td {
 a {}
 /* Туловище */
 body {
-    background: linear-gradient(to bottom, #C5DDE8 90%, #EECFBA) no-repeat center center fixed
+    background: linear-gradient(to bottom, #C5DDE8 90%, #EECFBA) no-repeat center center fixed;
+    width:100%;
+    height:100%;
 }
 /* блок с вводом */
 .input-block {background-color: #9bffab;}
