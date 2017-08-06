@@ -10,6 +10,37 @@
                 {{ hum_me.human.name }}
             {% endif %}
         </div>
+{% if caption.0 != 'Зарядка' %}
+    {% if caption.1 == 1 %}
+    <!--График-->
+    <div id="chart_div{{ hum_me.human.id }}" style="width: 200px; height: 100px;"></div>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Year', '{{ caption.0 }}'],
+{% for metrics_l in hum_me.metric_N_l %}
+    {% for metric in metrics_l %}
+        {% if forloop.counter0 == 2 %}
+                    ['{{ metric|date:"d.m" }}',
+        {% elif forloop.counter0 == 3 %}
+                        Number('{{ metric }}'.replace(',','.'))],
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+                ]);
+                var options = {
+                    vAxis: {minValue: 0},
+                    legend: {position: 'top'},
+                    chartArea:{left:15,top:15,width:'100%',height:'75%'},
+                };
+                var chart = new google.visualization.AreaChart(document.getElementById('chart_div{{ hum_me.human.id }}'));
+                chart.draw(data, options);
+            }
+        </script>
+    {% endif %}
+{% endif %}
     <!--Ввод значений-->
         {% if user_obj.username %}
         <form action="{% url url_foradd %}" method="post">
