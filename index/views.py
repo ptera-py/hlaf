@@ -11,6 +11,12 @@ def index(request):
     context = {'user_obj':user_obj,}
     return render(request,'index/index.html',context)
 
+#Главная страничка2
+def index2(request):
+    user_obj = request.user
+    context = {'user_obj':user_obj,}
+    return render(request,'index/base.html',context)
+
 ########Human
 #Master data
 def master_data(request):

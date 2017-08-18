@@ -1,0 +1,109 @@
+.head {
+    background: linear-gradient(to top, #007b9f 10%, #0398c3 90%);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.logo {
+    padding-right: 5px;
+    font-family: 'Satisfy', cursive;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+a.logo:link, a.logo:visited {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+a.logo:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+body {
+    background-color: #8a8a8a;
+}
+
+.usname {
+    font-family: 'Lobster', cursive;
+}
+
+.auth {
+    font-family: 'Lobster', cursive;
+    font-size: large;
+}
+
+a.auth:link, a.auth:visited {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+a.auth:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: linear-gradient(to top, #007b9f 10%, #0398c3 90%);
+    color: #e0e0e0;
+    border-color: black;
+}
+
+.btn-primary:hover{
+    color: #fff;
+}
+
+.main-menu {
+    background-color: #007b9f;
+    font-family: 'Lobster', cursive;
+    color: #e0e0e0;
+    font-size: large;
+}
+
+.sect-cap {
+    color: #242525;
+    font-family: 'Lobster', cursive;
+    font-size: large;
+    font-weight: bold;
+}
+
+.table-cap {
+    font-family: 'Lobster', cursive;
+}
+
+a.table-cap:link, a.table-cap:visited {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+a.table-cap:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+th {
+    font-family: 'Lobster', cursive;
+}
+
+td {
+    font-family: 'Lobster', cursive;
+}
+
+.tb-metr {
+    background-color: #e0e0e0;
+    font-family: 'Lobster', cursive;
+}
+
+.btn-default {
+    background-color: #e0e0e0;
+}
+
+.btn-default:hover {
+    background-color: #fff;
+}
+
+.chart {
+    width: 350px;
+    height: 150px;
+}

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'index/css/main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+
+    </head>
+<body>
+    <div class="container head">
+        <div class="row">
+            <div class="col-xs-7">
+                <div>
+                    <a class="logo" href="{% url 'index:index2' %}">Hlaf</a>
+                    <button class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </button>
+                    <ul class="dropdown-menu main-menu">
+                        <li>Метрики</li>
+                        <li><a href="#">Вес</a></li>
+                        <li><a href="#">Зарядка</a></li>
+                        <li role="separator" class="divider"></li>
+{% if user_obj.is_staff %}
+                        <li>Органайзер</li>
+                        <li><a href="#">Сколерозник</a></li>
+                        <li><a href="#">Маст рид</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li>Настройки</li>
+                        <li><a href="#">Separated link</a></li>
+{% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <div>
+{% if user_obj.username %}
+                    <div class="usname">Привет {{ user_obj.username }}!</div>
+                    <a href="/auth/logout" class="auth">Выйти</a>
+{% else %}
+                    <a href="/auth/login" class="auth">Войти</a>
+{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
