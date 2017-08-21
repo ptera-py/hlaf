@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     </head>
 <body>
@@ -22,7 +23,7 @@
                     </button>
                     <ul class="dropdown-menu main-menu">
                         <li>Метрики</li>
-                        <li><a href="#">Вес</a></li>
+                        <li><a href="{% url 'metrics:generic_weighs' %}">Вес</a></li>
                         <li><a href="#">Зарядка</a></li>
                         <li role="separator" class="divider"></li>
 {% if user_obj.is_staff %}
@@ -31,7 +32,7 @@
                         <li><a href="#">Маст рид</a></li>
                         <li role="separator" class="divider"></li>
                         <li>Настройки</li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="{% url 'index:essences' %}">Персоналии</a></li>
 {% endif %}
                     </ul>
                 </div>
@@ -48,6 +49,8 @@
             </div>
         </div>
     </div>
+{% block content %}
+{% endblock %}
 
 </body>
 </html>

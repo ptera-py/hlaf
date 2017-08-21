@@ -23,6 +23,7 @@ a.logo:hover {
 
 body {
     background-color: #8a8a8a;
+    font-family: 'Lobster', cursive;
 }
 
 .usname {
@@ -97,6 +98,7 @@ td {
 
 .btn-default {
     background-color: #e0e0e0;
+    font-family: 'Lobster', cursive;
 }
 
 .btn-default:hover {
@@ -106,4 +108,12 @@ td {
 .chart {
     width: 350px;
     height: 150px;
+}
+
+.panel {
+    background-color: #7a7a7a;
+}
+
+.panel-heading {
+    background-color: #9a9a9a;
 }

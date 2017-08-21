@@ -36,5 +36,7 @@ urlpatterns = [
     # delete communal
     url(r'^communal_delete/$', views.f_communal_dell, name='communal_delete'),
 
-
+    #########################
+    #weghs all humans (generic) edit
+    url(r'^weighs2/$', views.f_generic_weighs, name='generic_weighs'),
 ]

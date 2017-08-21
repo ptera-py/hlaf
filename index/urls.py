@@ -3,6 +3,7 @@ from django.conf.urls import url
 from . import views
 
 app_name = 'index'
+
 urlpatterns = [
     url(r'^$', views.index, name='index'),#index
 
@@ -13,6 +14,10 @@ urlpatterns = [
     url(r'^master_data/flowmeter$', views.f_flowmeter_editor, name='flowmeter_editor'),#flowmeter_editor
     url(r'^master_data/flowmeter_insert', views.f_flowmeter_insert, name='flowmeter_insert'), #for flowmeter insert
     url(r'^master_data/flowmeter_delete', views.f_flowmeter_delete, name='flowmeter_delete'), #for flowmeter delete
-
+##########################################################################
     url(r'^index2/$', views.index2, name='index2'),#index2
+    url(r'^master_data/essence/$', views.f_essence, name='essences'),#master_data_human
+    url(r'^master_data/essence/add$', views.f_essence_add, name='essences_add'),#добавление master_data_human
+
+    url(f'^master_data/essence_settings$', views.f_essence_settings, name='essence_settings'),#
 ]

@@ -1,0 +1,70 @@
+{% extends 'index/base.html' %}
+{% block content %}
+<div class="container content">
+    <div class="row">
+        <div class="col-xs-12 sect-cap"><span class="glyphicon glyphicon-scale"></span> Вес</div>
+    </div>
+    <div class="row">
+{% for item in TemplateWeighs %}
+        <div class="col-sm-6">
+            <div>
+                <a href="#" class="table-cap">{{ item.human.name }}</a>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Дата', 'Вес', 'Порог'],
+    {% for w_item in item.weighs_10days_aver %}
+            ['{{ w_item.1 }}', Number('{{ w_item.0.weigh }}'.replace(',','.')), 72],
+    {% endfor %}
+        ]);
+        var options = {
+            animation: {
+                duration: 1000,
+                easing: 'out',
+                startup: true
+            },
+            hAxis: {direction: -1},
+            vAxis: {baseline: 74, viewWindow:{max: 74, min: 69}, textPosition: 'in'},
+            backgroundColor: {fill: '#8a8a8a'},
+            colors: ['#1cd7ff','#f00'],
+            fontSize: 8,
+            fontName: 'Arial',
+            legend: {position: 'in'},
+            chartArea:{left:0,top:5,width:'100%',height: 143}
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div{{ item.human.id }}'));
+        chart.draw(data, options);
+    }
+</script>
+                <div id="chart_div{{ item.human.id }}" class="chart"></div>
+                <div>
+                    <form class="form-inline" action="#">
+                        <div class="form-group">
+                            <input type="text" class="form-control tb-metr">
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                        </div>
+                        <button class="btn btn-default" type="button" onclick="document.new1.submit()"><span class="glyphicon glyphicon-minus"></span></button>
+                    </form>
+                </div>
+                <form name="new1" id="r" action="ttt1">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th><span class="glyphicon glyphicon-ok"></span></th><th>Дата</th><th>Значение</th>
+                            </tr>
+    {% for weigh in item.weighs_6 %}
+                            <tr>
+                                <td><input type="checkbox"></td><td>{{ weigh.m_date }}</td><td>{{ weigh.weigh }}</td>
+                            </tr>
+    {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+{% endfor %}
+    </div>
+</div>
+{% endblock %}

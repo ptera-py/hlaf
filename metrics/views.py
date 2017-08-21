@@ -121,3 +121,11 @@ def f_communal_add(request):
 #Удалить тариф
 def f_communal_dell(request):
     return func_lib.fl_obj_delete(request, models.Communal, 'metrics:communal_editor')
+##====================================================================================================
+def f_generic_weighs(request):
+    humans = index_mod.Human.objects.all()
+    TemplateWeighs = []
+    for human in index_mod.Human.objects.all():
+        TemplateWeighs.append(classes_for_templ.TemplateWeigh(human))
+    context = {'user_obj': request.user, 'humans': humans, 'TemplateWeighs':TemplateWeighs,}
+    return render(request, 'metrics/generic_weighs.html', context)

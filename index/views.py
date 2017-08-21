@@ -1,21 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
-from .models import Human, Flowmeter
+from .models import Human, Flowmeter, Human_Settings
 from .func_lib import fl_obj_insert, fl_obj_delete
 
 #Главная страничка
 def index(request):
     user_obj = request.user
-    context = {'user_obj':user_obj,}
+    context = {'user_obj': user_obj,}
     return render(request,'index/index.html',context)
-
-#Главная страничка2
-def index2(request):
-    user_obj = request.user
-    context = {'user_obj':user_obj,}
-    return render(request,'index/base.html',context)
 
 ########Human
 #Master data
@@ -50,3 +45,33 @@ def f_flowmeter_insert(request):
 #Flowmeter delete
 def f_flowmeter_delete(request):
     return fl_obj_delete(request,Flowmeter,'index:flowmeter_editor')
+
+#####################################################################################
+#Главная страничка2
+def index2(request):
+    user_obj = request.user
+    context = {'user_obj':user_obj,}
+    return render(request,'index/base.html',context)
+
+#Настройка персоналий
+def f_essence(request):
+    user_obj = request.user
+    context = {'user_obj': user_obj, 'essences':Human.objects.all(),}
+    return render(request, 'index/essences.html', context)
+
+#Добавление essence и essence settings
+def f_essence_add(request):
+    weigh_th = str(request.POST['ess_weigh_th']).strip()  # Порог веса, c удалением пробелов
+    if(request.POST['new']):
+        #Создаем новую запись в таблице Human
+        ess = Human(name=request.POST['ess_nm'])
+        ess.save()
+        #Получаем настройки Human и если они не пустые, то пишем их в Human_Settings
+        ess_set = Human_Settings(human=ess, c_date=timezone.now(), set_name='weigh_th', set_val=weigh_th)
+        ess_set.save()
+
+    return HttpResponseRedirect(reverse('index:essences'))
+
+#Персональные настройки
+def f_essence_settings(request):
+    return HttpResponse('ff')

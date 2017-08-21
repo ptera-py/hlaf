@@ -1,0 +1,101 @@
+{% extends 'index/base.html' %}
+{% block content %}
+
+<div class="container content">
+    <div class="row">
+        <div class="col-xs-12 sect-cap"><span class="glyphicon glyphicon-cog"></span> <span class="glyphicon glyphicon-user"></span> Настройки персоналий</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-title">
+                <div class="panel-heading">
+                    <button class="btn btn-default" data-toggle="modal" data-target="#new_modal">
+                        <span class="glyphicon glyphicon-plus"></span> New
+                    </button>
+                    <!--Modal content-->
+                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="new_modal">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Добавить персону</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" name="new_ess" class="form-inline" action="{% url 'index:essences_add' %}">
+{% csrf_token %}
+                                        <label for="ess_nm">
+                                            Имя <span class="glyphicon glyphicon-user"></span>
+                                        </label><br>
+                                        <input name="ess_nm" type="text" class="form-control tb-metr">
+                                        <label for="ess_weigh_th">
+                                            Порог веса <span class="glyphicon glyphicon-scale"></span>
+                                        </label><br>
+                                        <input name="ess_weigh_th" type="text" class="form-control tb-metr">
+                                        <input type="hidden" value="1" name="new">
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="document.new_ess.submit()">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End of Modal Content-->
+                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Имя</th><th><span class="glyphicon glyphicon-remove"></span></th>
+                        </tr>
+{% for essence in essences %}
+                        <tr>
+                            <td>
+                                <a href="#" class="table-cap" data-toggle="modal" data-target="#{{ essence.id }}_modal">
+                                    <span class="glyphicon glyphicon-cog"></span> {{ essence.name }}
+                                </a>
+                                <!--Modal content-->
+                                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="{{ essence.id }}_modal">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Редактировать персону</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" name="edit_ess{{ essence.id }}" class="form-inline" action="{% url 'index:essences_add' %}">
+{% csrf_token %}
+                                                    <label for="ess_nm">
+                                                        Имя <span class="glyphicon glyphicon-user"></span>
+                                                    </label><br>
+                                                    <input name="ess_nm" type="text" class="form-control tb-metr" readonly value="{{ essence.name }}">
+                                                    <label for="ess_weigh_th">
+                                                        Порог веса <span class="glyphicon glyphicon-scale"></span>
+                                                    </label><br>
+                                                    <input name="ess_weigh_th" type="text" class="form-control tb-metr" value="{{ essence.human_settings_set.all.0.set_val }}">
+                                                    <input type="hidden" value="" name="new">
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onclick="document.edit_ess{{ essence.id }}.submit()">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--End of Modal Content-->
+                            </td>
+                            <td><button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span></button></td>
+                        </tr>
+{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
