@@ -62,14 +62,26 @@ def f_essence(request):
 #Добавление essence и essence settings
 def f_essence_add(request):
     weigh_th = str(request.POST['ess_weigh_th']).strip()  # Порог веса, c удалением пробелов
-    if(request.POST['new']):
+    #Если создаётся новая запись
+    if(not request.POST['human_id']):
         #Создаем новую запись в таблице Human
         ess = Human(name=request.POST['ess_nm'])
         ess.save()
         #Получаем настройки Human и если они не пустые, то пишем их в Human_Settings
-        ess_set = Human_Settings(human=ess, c_date=timezone.now(), set_name='weigh_th', set_val=weigh_th)
-        ess_set.save()
-
+        if (weigh_th != ''):
+          ess_set = Human_Settings(human=ess, c_date=timezone.now(), set_name='weigh_th', set_val=weigh_th)
+          ess_set.save()
+    #Если редактируется имеющаяся
+    else:
+        # введённое значение не должно быть пустым и не должно быть равным текущему
+        ess = Human.objects.get(pk=request.POST['human_id']) #Текущий human
+        try: #Если создавать порог для human, у которого нет порога, то будет исключение AttributeError
+            t_ess_set = ess.human_settings_set.first().get_weigh_th() #Порог веса для текущего human
+        except AttributeError:
+            t_ess_set = ''
+        if ((weigh_th != '') and (weigh_th != t_ess_set)): #Соьственно, сама проверка
+          ess_set = Human_Settings(human=ess, c_date=timezone.now(), set_name='weigh_th', set_val=weigh_th)
+          ess_set.save()
     return HttpResponseRedirect(reverse('index:essences'))
 
 #Персональные настройки

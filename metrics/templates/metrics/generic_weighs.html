@@ -16,7 +16,7 @@
         var data = google.visualization.arrayToDataTable([
             ['Дата', 'Вес', 'Порог'],
     {% for w_item in item.weighs_10days_aver %}
-            ['{{ w_item.1 }}', Number('{{ w_item.0.weigh }}'.replace(',','.')), 72],
+            ['{{ w_item.1 }}', Number('{{ w_item.0.weigh }}'.replace(',','.')), {{ item.human.human_settings_set.all.0.get_weigh_th }}],
     {% endfor %}
         ]);
         var options = {
@@ -26,7 +26,7 @@
                 startup: true
             },
             hAxis: {direction: -1},
-            vAxis: {baseline: 74, viewWindow:{max: 74, min: 69}, textPosition: 'in'},
+            vAxis: {baseline: {{ item.human.human_settings_set.all.0.get_weigh_th }}+2, viewWindow:{max: {{ item.human.human_settings_set.all.0.get_weigh_th }}+2, min: {{ item.human.human_settings_set.all.0.get_weigh_th }}-3}, textPosition: 'in'},
             backgroundColor: {fill: '#8a8a8a'},
             colors: ['#1cd7ff','#f00'],
             fontSize: 8,

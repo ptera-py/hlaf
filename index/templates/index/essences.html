@@ -31,7 +31,7 @@
                                             Порог веса <span class="glyphicon glyphicon-scale"></span>
                                         </label><br>
                                         <input name="ess_weigh_th" type="text" class="form-control tb-metr">
-                                        <input type="hidden" value="1" name="new">
+                                        <input type="hidden" value="" name="human_id">
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -46,7 +46,10 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th>Имя</th><th><span class="glyphicon glyphicon-remove"></span></th>
+                            <th><span class="glyphicon glyphicon-user"></span></th>
+                            <th>ID</th>
+                            <th><span class="glyphicon glyphicon-scale"></span></th>
+                            <th><span class="glyphicon glyphicon-remove"></span></th>
                         </tr>
 {% for essence in essences %}
                         <tr>
@@ -72,8 +75,8 @@
                                                     <label for="ess_weigh_th">
                                                         Порог веса <span class="glyphicon glyphicon-scale"></span>
                                                     </label><br>
-                                                    <input name="ess_weigh_th" type="text" class="form-control tb-metr" value="{{ essence.human_settings_set.all.0.set_val }}">
-                                                    <input type="hidden" value="" name="new">
+                                                    <input name="ess_weigh_th" type="text" class="form-control tb-metr" value="{{ essence.human_settings_set.all.0.get_weigh_th }}">
+                                                    <input type="hidden" value="{{ essence.id }}" name="human_id">
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
@@ -87,7 +90,15 @@
                                 </div>
                                 <!--End of Modal Content-->
                             </td>
-                            <td><button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span></button></td>
+                            <td>
+                                {{ essence.id }}
+                            </td>
+                            <td>
+                                {{ essence.human_settings_set.all.0.get_weigh_th }}
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span></button>
+                            </td>
                         </tr>
 {% endfor %}
                     </tbody>
