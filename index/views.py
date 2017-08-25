@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.core import exceptions
 
 from .models import Human, Flowmeter, Human_Settings
 from .func_lib import fl_obj_insert, fl_obj_delete
@@ -82,6 +83,15 @@ def f_essence_add(request):
         if ((weigh_th != '') and (weigh_th != t_ess_set)): #Соьственно, сама проверка
           ess_set = Human_Settings(human=ess, c_date=timezone.now(), set_name='weigh_th', set_val=weigh_th)
           ess_set.save()
+    return HttpResponseRedirect(reverse('index:essences'))
+
+#Удаление Essence
+def f_essence_del(request):
+    try: #Если такая запись ещё в базе существует, то удаляем
+        human = Human.objects.get(pk=request.POST['essence'])
+        human.delete()
+    except exceptions.ObjectDoesNotExist: #Если запись уже кто-то удалил
+        pass
     return HttpResponseRedirect(reverse('index:essences'))
 
 #Персональные настройки

@@ -17,7 +17,8 @@ urlpatterns = [
 ##########################################################################
     url(r'^index2/$', views.index2, name='index2'),#index2
     url(r'^master_data/essence/$', views.f_essence, name='essences'),#master_data_human
-    url(r'^master_data/essence/add$', views.f_essence_add, name='essences_add'),#добавление master_data_human
+    url(r'^master_data/essence/add$', views.f_essence_add, name='essences_add'),#добавление или редактирование master_data_human
+    url(r'^master_data/essence/del$', views.f_essence_del, name='essences_del'),#удаление master_data_human
 
-    url(f'^master_data/essence_settings$', views.f_essence_settings, name='essence_settings'),#
+    #url(f'^master_data/essence_settings$', views.f_essence_settings, name='essence_settings'),#
 ]
