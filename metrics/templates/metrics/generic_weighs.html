@@ -8,7 +8,7 @@
 {% for item in TemplateWeighs %}
         <div class="col-sm-6">
             <div>
-                <a href="#" class="table-cap">{{ item.human.name }}</a>
+                <a href="#" class="table-cap"><span class="glyphicon glyphicon-user"></span> {{ item.human.name }}</a>
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -39,38 +39,46 @@
     }
 </script>
                 <div id="chart_div{{ item.human.id }}" class="chart"></div>
-                <div>
-                    <form class="form-inline" action="#">
-                        <div class="form-group">
-                            <input type="text" class="form-control tb-metr">
-                            <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-                        </div>
-                    </form>
-                </div>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th><span class="glyphicon glyphicon-remove"></span></th><th>Дата</th><th>Вес</th>
-                        </tr>
+                <div class="panel panel-title">
+                    <div class="panel-heading">
+                        <form class="form-inline" action="#">
+                            <div class="form-group row">
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control tb-metr">
+                                </div>
+                                <div class="col-xs-1">
+                                    <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                                </div>
+                                <div class="col-xs-1"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th><span class="glyphicon glyphicon-remove"></span></th><th>Дата</th><th>Вес</th>
+                            </tr>
     {% for weigh in item.weighs_6 %}
-                        <tr>
-                            <td>
-                                <form class="form-inline" method="post" action="#">
-                                    <button class="btn btn-default btn-xs" type="button">
+                            <tr>
+                                <td>
+                                    <form class="form-inline" method="post" action="#">
+                                        <button class="btn btn-default btn-xs" type="button">
                                         <span class="glyphicon glyphicon-minus"></span>
-                                    </button>
-                                </form>
-                            </td>
-                            <td>
-                                {{ weigh.m_date }}
-                            </td>
-                            <td>
-                                {{ weigh.weigh }}
-                            </td>
-                        </tr>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    {{ weigh.m_date }}
+                                </td>
+                                <td>
+                                    {{ weigh.weigh }}
+                                </td>
+                            </tr>
     {% endfor %}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
             </div>
         </div>
 {% endfor %}
