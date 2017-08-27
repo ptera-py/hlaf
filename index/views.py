@@ -7,11 +7,13 @@ from django.core import exceptions
 from .models import Human, Flowmeter, Human_Settings
 from .func_lib import fl_obj_insert, fl_obj_delete
 
+'''
 #Главная страничка
 def index(request):
     user_obj = request.user
     context = {'user_obj': user_obj,}
     return render(request,'index/index.html',context)
+'''
 
 ########Human
 #Master data
@@ -48,8 +50,8 @@ def f_flowmeter_delete(request):
     return fl_obj_delete(request,Flowmeter,'index:flowmeter_editor')
 
 #####################################################################################
-#Главная страничка2
-def index2(request):
+#Главная страничка
+def index(request):
     user_obj = request.user
     context = {'user_obj':user_obj,}
     return render(request,'index/base.html',context)

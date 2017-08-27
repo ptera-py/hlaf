@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'index/css/style.css' %}">
@@ -21,7 +22,7 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li>Метрики</li>
-                    <li><a href="{% url 'metrics:weighs_editor' %}">Вес</a></li>
+                    <li><a href="{% url 'metrics:generic_weighs' %}">Вес</a></li>
                     <li><a href="{% url 'metrics:fitness_editor' %}">Зарядка</a></li>
 {% if user_obj.is_staff %}
                     <li><a href="{% url 'metrics:indicate_editor' %}">Счётчики</a></li>

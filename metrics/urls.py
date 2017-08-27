@@ -5,7 +5,7 @@ from . import views
 app_name = 'metrics'
 urlpatterns = [
     url(r'^$', views.f_menu, name='menu'),
-    url(r'^weighs/$', views.f_weighs_editor, name='weighs_editor'),
+    #url(r'^weighs/$', views.f_weighs_editor, name='weighs_editor'),
     #input new weigh
     url(r'^weighs_insert/$', views.f_weigh_add, name='weighs_insert'),
     #delete weighs
@@ -38,5 +38,9 @@ urlpatterns = [
 
     #########################
     #weghs all humans (generic) edit
-    url(r'^weighs2/$', views.f_generic_weighs, name='generic_weighs'),
+    url(r'^weighs/$', views.f_generic_weighs, name='generic_weighs'),
+    #input new weigh
+    url(r'^weighs_add/$', views.f_weighs_add, name='weighs_add'),
+    #del weigh
+    url(r'^weighs_del/$', views.f_weighs_del, name='weighs_del'),
 ]

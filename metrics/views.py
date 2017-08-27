@@ -129,3 +129,13 @@ def f_generic_weighs(request):
         TemplateWeighs.append(classes_for_templ.TemplateWeigh(human))
     context = {'user_obj': request.user, 'humans': humans, 'TemplateWeighs':TemplateWeighs,}
     return render(request, 'metrics/generic_weighs.html', context)
+
+#Добавить вес
+def f_weighs_add(request):
+    human = get_object_or_404(index_mod.Human, pk=request.POST['human'])
+    human.weighs_set.create(weigh=request.POST['metric'].replace(',', '.'),m_date=timezone.now())
+    return HttpResponseRedirect(reverse('metrics:generic_weighs'))
+
+#Удалить вес
+def f_weighs_del(request):
+    return func_lib.fl_obj_delete(request, models.Weighs, 'metrics:generic_weighs')
