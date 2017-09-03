@@ -14,7 +14,6 @@ urlpatterns = [
     url(r'^weighs/(?P<human_id>[0-9]+)/$', views.f_all_person_metrics, name='person_metrics'),
 
     #fitness
-    url(r'^fitness/$', views.f_fitness_edit, name='fitness_editor'),
     #add fitness
     url(r'^fitness_insert/$', views.f_fitness_add, name='fitness_insert'),
     #delete fitness
@@ -43,4 +42,11 @@ urlpatterns = [
     url(r'^weighs_add/$', views.f_weighs_add, name='weighs_add'),
     #del weigh
     url(r'^weighs_del/$', views.f_weighs_del, name='weighs_del'),
+
+    #fitness all humans (generic) edit
+    url(r'^fitness/$', views.f_generic_fitness, name='generic_fitness'),
+    #add fitness
+    url(r'^fitness_add/$', views.f_fitness_add, name='fitness_add'),
+    #delete fitness
+    url(r'^fitness_del/$', views.f_fitness_del, name='fitness_del'),
 ]

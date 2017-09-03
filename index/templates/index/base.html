@@ -11,8 +11,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://use.fontawesome.com/0c5250f976.js"></script>
 
-    </head>
+
+</head>
 <body>
     <div class="container head">
         <div class="row">
@@ -25,7 +27,7 @@
                     <ul class="dropdown-menu main-menu">
                         <li>Метрики</li>
                         <li><a href="{% url 'metrics:generic_weighs' %}">Вес</a></li>
-                        <li><a href="{% url 'metrics:fitness_editor' %}">Зарядка</a></li>
+                        <li><a href="{% url 'metrics:generic_fitness' %}">Зарядка</a></li>
 {% if user_obj.is_staff %}
                         <li><a href="{% url 'metrics:indicate_editor' %}">Счётчики</a></li>
                         <li><a href="{% url 'metrics:communal_editor' %}">Тарифы</a></li>
@@ -35,8 +37,8 @@
                         <li><a href="#">Маст рид</a></li>
                         <li role="separator" class="divider"></li>
                         <li>Настройки</li>
-                        <li><a href="{% url 'index:essences' %}">Персоналии</a></li>
-                        <li><a href="{% url 'index:flowmeter_editor' %}">Счётчики</a></li>
+                        <li><a href="{% url 'index:essences' %}">Persons</a></li>
+                        <li><a href="{% url 'index:flowmeter_editor' %}">FlowMeters</a></li>
 {% endif %}
                         <li role="separator" class="divider"></li>
                     </ul>

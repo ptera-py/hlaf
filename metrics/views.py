@@ -57,13 +57,8 @@ def f_fitness_edit(request):
     caption = ['Зарядка',1]
     context = {'user_obj':request.user, 'list_hum_me':list_hum_me, 'url_fordel':url_fordel, 'url_foradd':url_foradd, 'caption':caption}
     return render(request, 'metrics/metric_redactor.html', context)
-#Добавить зарядку
-def f_fitness_add(request):
-    human = get_object_or_404(index_mod.Human, pk=request.POST['human'])
-    human.fitness_set.create(m_date=timezone.now())
-    return HttpResponseRedirect(reverse('metrics:fitness_editor'))
-def f_fitness_dell(request):
-    return func_lib.fl_obj_delete(request,models.Fitness,'metrics:fitness_editor')
+
+
 #Представление для вывода всех индивидуальных метрик по одному человеку
 def f_all_person_fitness(request, human_id):
     human = get_object_or_404(index_mod.Human, pk=human_id)
@@ -123,19 +118,40 @@ def f_communal_dell(request):
     return func_lib.fl_obj_delete(request, models.Communal, 'metrics:communal_editor')
 ##====================================================================================================
 def f_generic_weighs(request):
-    humans = index_mod.Human.objects.all()
-    TemplateWeighs = []
-    for human in index_mod.Human.objects.all():
-        TemplateWeighs.append(classes_for_templ.TemplateWeigh(human))
-    context = {'user_obj': request.user, 'humans': humans, 'TemplateWeighs':TemplateWeighs,}
-    return render(request, 'metrics/generic_weighs.html', context)
+    caption = models.Weighs._meta.verbose_name #Name of metric
+    cap_icon = 'glyphicon glyphicon-scale' #caption icon
 
+    TemplateMetrics = []
+    for human in index_mod.Human.objects.all():
+        TemplateMetrics.append(classes_for_templ.TemplateWeigh(human, human.weighs_set))
+    context = {'user_obj': request.user, 'caption':caption, 'cap_icon':cap_icon, 'TemplateMetrics':TemplateMetrics, }
+    return render(request, 'metrics/generic_weigh_chart.html', context)
 #Добавить вес
 def f_weighs_add(request):
     human = get_object_or_404(index_mod.Human, pk=request.POST['human'])
     human.weighs_set.create(weigh=request.POST['metric'].replace(',', '.'),m_date=timezone.now())
     return HttpResponseRedirect(reverse('metrics:generic_weighs'))
-
 #Удалить вес
 def f_weighs_del(request):
     return func_lib.fl_obj_delete(request, models.Weighs, 'metrics:generic_weighs')
+
+##Fitness
+def f_generic_fitness(request):
+    caption = models.Fitness._meta.verbose_name  # Name of metric
+    cap_icon = 'fa fa-universal-access' # caption icon
+    TemplateMetrics = []
+    for human in index_mod.Human.objects.all():
+        TemplateMetrics.append(classes_for_templ.TemplateWeigh(human,human.fitness_set))
+
+    context = {'user_obj': request.user, 'caption':caption, 'cap_icon':cap_icon, 'TemplateMetrics':TemplateMetrics,}
+    return render(request, 'metrics/generic_fitness_chart.html', context)
+#Добавить зарядку
+def f_fitness_add(request):
+    human = get_object_or_404(index_mod.Human, pk=request.POST['human'])
+    human.fitness_set.create(m_date=timezone.now())
+    return HttpResponseRedirect(reverse('metrics:generic_fitness'))
+#Удалить зарядку
+def f_fitness_dell(request):
+    return func_lib.fl_obj_delete(request,models.Fitness,'metrics:generic_fitness')
+def f_fitness_del(request):
+    return func_lib.fl_obj_delete(request,models.Fitness,'metrics:generic_fitness')

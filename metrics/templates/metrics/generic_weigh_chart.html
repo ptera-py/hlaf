@@ -1,0 +1,33 @@
+{% extends 'metrics/generic_weighs.html' %}
+{% block chart %}
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Дата', 'Вес', 'Порог'],
+    {% for m_item in item.metrics_10days_aver %}
+            ['{{ m_item.1 }}', Number('{{ m_item.0.weigh }}'.replace(',','.')), {{ item.human.human_settings_set.all.0.get_weigh_th }}],
+    {% endfor %}
+        ]);
+        var options = {
+            animation: {
+                duration: 1000,
+                easing: 'out',
+                startup: true
+            },
+            hAxis: {direction: -1},
+            vAxis: {baseline: {{ item.human.human_settings_set.all.0.get_weigh_th }}+2, viewWindow:{max: {{ item.human.human_settings_set.all.0.get_weigh_th }}+2, min: {{ item.human.human_settings_set.all.0.get_weigh_th }}-3}, textPosition: 'in'},
+            backgroundColor: {fill: '#8a8a8a'},
+            colors: ['#1cd7ff','#f00'],
+            fontSize: 8,
+            fontName: 'Arial',
+            legend: {position: 'in'},
+            chartArea:{left:0,top:5,width:'100%',height: 143}
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div{{ item.human.id }}'));
+        chart.draw(data, options);
+        }
+    </script>
+    <div id="chart_div{{ item.human.id }}" class="chart"></div>
+{% endblock %}

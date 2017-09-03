@@ -23,7 +23,7 @@
                 <ul class="dropdown-menu">
                     <li>Метрики</li>
                     <li><a href="{% url 'metrics:generic_weighs' %}">Вес</a></li>
-                    <li><a href="{% url 'metrics:fitness_editor' %}">Зарядка</a></li>
+                    <li><a href="{% url 'metrics:generic_fitness' %}">Зарядка</a></li>
 {% if user_obj.is_staff %}
                     <li><a href="{% url 'metrics:indicate_editor' %}">Счётчики</a></li>
                     <li><a href="{% url 'metrics:communal_editor' %}">Тарифы</a></li>
@@ -31,7 +31,7 @@
                     <li><a href="#">Сколерозник</a></li>
                     <li><a href="#">МастРид</a></li>
                     <li>Настройки</li>
-                    <li><a href="{% url 'index:master_data' %}">Личность</a></li>
+                    <li><a href="{% url 'index:essences' %}">Личность</a></li>
                     <li><a href="{% url 'index:flowmeter_editor' %}">Счётчики</a></li>
 {% endif %}
                 </ul>
