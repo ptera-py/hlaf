@@ -22,4 +22,6 @@ urlpatterns = [
     url(r'^master_data/essence/del$', views.f_essence_del, name='essences_del'),#удаление master_data_human
 
     #url(f'^master_data/essence_settings$', views.f_essence_settings, name='essence_settings'),#
+
+    url(r'^n_login/$', views.f_login, name='login'),#login
 ]

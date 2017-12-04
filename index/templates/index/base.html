@@ -50,7 +50,41 @@
                     <div class="usname">Привет {{ user_obj.username }}!</div>
                     <a href="/auth/logout" class="auth">Выйти</a>
 {% else %}
-                    <a href="/auth/login" class="auth">Войти</a>
+                    <!-- Modal login content-->
+                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="login_modal">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        <span class="glyphicon glyphicon-user"></span> Log in please
+                                    </h4>
+                                </div>
+                                <form method="post" class="form-inline" action="{% url 'index:login' %}">
+                                {% csrf_token %}
+                                    <div class="modal-body">
+                                        <label for="login">User name</label><br>
+                                        <input type="text" class="form-control" name="username" placeholder="username"><br>
+                                        <label for="password">Pass</label><br>
+                                        <input type="password" class="form-control" name="password" placeholder="***"><br>
+                                        <input type="checkbox" name="remember">
+                                        <label for="remember">Remember me</label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Modal login content -->
+                    <button class="btn btn-default btn-xs" type="button" data-toggle="modal" data-target="#login_modal">
+                        <span>Войти</span>
+                    </button>
+                    <!--<a href="/auth/login" class="auth">Войти</a>-->
 {% endif %}
                 </div>
             </div>

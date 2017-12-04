@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.core import exceptions
+from django.contrib.auth import authenticate, login
 
 from .models import Human, Flowmeter, Human_Settings
 from .func_lib import fl_obj_insert, fl_obj_delete
@@ -99,3 +100,15 @@ def f_essence_del(request):
 #Персональные настройки
 def f_essence_settings(request):
     return HttpResponse('ff')
+
+#Login
+
+def f_login(request):
+    user = authenticate(username=str(request.POST['username']), password=str(request.POST['password']))
+    if user is not None:
+        if (request.POST.getlist('remember')):  # Запомнить или не запомнить
+            request.session.set_expiry(999999999)
+        else:
+            request.session.set_expiry(0)
+        login(request, user)
+    return HttpResponseRedirect(reverse('index:index'))
