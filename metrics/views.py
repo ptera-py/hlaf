@@ -141,14 +141,13 @@ def f_weighs_del(request):
 
 ##Fitness
 def f_generic_fitness(request):
-    gg = datetime.strptime('2018-02-23', '%Y-%m-%d').date()
     caption = models.Fitness._meta.verbose_name  # Name of metric
     cap_icon = 'fa fa-universal-access' #caption icon
     TemplateMetrics = []
     for human in index_mod.Human.objects.all():
         TemplateMetrics.append(classes_for_templ.TemplateWeigh(human,human.fitness_set))
 
-    context = {'user_obj': request.user, 'caption':caption, 'cap_icon':cap_icon, 'TemplateMetrics':TemplateMetrics, 'ff':gg}
+    context = {'user_obj': request.user, 'caption':caption, 'cap_icon':cap_icon, 'TemplateMetrics':TemplateMetrics, }
     return render(request, 'metrics/generic_fitness_chart.html', context)
 #Добавить зарядку
 def f_fitness_add(request):
