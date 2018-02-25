@@ -51,6 +51,18 @@ a.auth:hover {
     border-color: black;
 }
 
+.btn-success {
+    background: linear-gradient(to top, #386808 10%, #82b748 90%);
+    color: #e0e0e0;
+    border-color: black;
+}
+
+.btn-danger {
+    background: linear-gradient(to top, #9c1818 10%, #c63232 90%);
+    color: #e0e0e0;
+    border-color: black;
+}
+
 .btn-primary:hover{
     color: #fff;
 }
@@ -118,4 +130,16 @@ td {
 
 .panel-heading {
     background-color: #9a9a9a;
+}
+
+a.m_tab:link, a.m_tab:visited{
+    color: #e0e0e0;
+    text-decoration: none;
+    font-family: 'Lobster', cursive;
+}
+
+a.m_tab:hover{
+    color: #007b9f;
+    text-decoration: none;
+    font-family: 'Lobster', cursive;
 }

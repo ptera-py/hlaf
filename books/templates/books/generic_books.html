@@ -1,0 +1,145 @@
+{% extends 'index/base.html' %}
+{% block content %}
+<div class="container content">
+    <div class="row">
+        <div class="col-xs-12 sect-cap"><span class="{{ cap_icon }}"></span> {{ caption }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <ul class="nav nav-tabs">
+                <li class="active"><a class="m_tab" data-toggle="tab" href="#panel1">MustRead</a></li>
+                <li><a class="m_tab" data-toggle="tab" href="#panel2">IsRead</a></li>
+                <li><a class="m_tab" data-toggle="tab" href="#panel3">WasRead</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="panel1" class="tab-pane fade in active">
+                    <h3>Необходимо прочитать</h3>
+                    <p>Содержимое 1 панели...</p>
+                    <div class="panel panel-title">
+                        <div class="panel-heading">
+                            <!-- Modal add book-->
+                            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="addbook_modal">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">
+                                                <span class="glyphicon glyphicon-book"></span> New Book
+                                            </h4>
+                                        </div>
+                                        <form method="post" class="form-inline" action="#">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><span class="fa fa-image"></span></span>
+                                                    <input type="text" class="form-control tb-metr" name="img" id="img" size="50" placeholder="Picture Link"/>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><span class="fa fa-book"></span></span>
+                                                    <input type="text" class="form-control tb-metr" name="caption" id="caption" size="50" placeholder="Caption"/>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                Authors
+                                                <br>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                                    <input type="text" class="form-control tb-metr" name="author1" id="author1" size="50" placeholder="Author 1"/>
+                                                </div>
+                                                <button class="btn btn-success btn-xs" type="button" id="add_auth">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                </button>
+                                                <button class="btn btn-danger btn-xs" type="button" id="del_auth" style="visibility: hidden">
+                                                    <span class="glyphicon glyphicon-minus"></span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Modal del content -->
+                            <button class="btn btn-default btn-xs" type="button" data-toggle="modal" data-target="#addbook_modal">
+                                Add book
+                            </button>
+                        </div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img class="media-object" height="100" src="https://ozon-st.cdn.ngenix.net/multimedia/1013593242.jpg">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <b>DevOps</b>
+                                    </td>
+                                    <td>
+                                        Jessie Russel<br>Ronald Kohn
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <img class="media-object" height="100" src="https://ozon-st.cdn.ngenix.net/multimedia/1016854716.jpg">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <b>Основы Data Science и Big Data. Python и наука о данных</b>
+                                    </td>
+                                    <td>
+                                        Дэви Силен<br>Арно Мейсман<br>Мохамед Али
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="panel2" class="tab-pane fade">
+                    <h3>Читается</h3>
+                    <p>Содержимое 2 панели...</p>
+                </div>
+                <div id="panel3" class="tab-pane fade">
+                    <h3>Прочитано</h3>
+                    <p>Содержимое 2 панели...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#add_auth').click(function () {
+            var id = ($('.input-group').length - 1).toString();
+            $('.modal-body').append(
+                '<div class="input-group">' +
+                    '<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>' +
+                    '<input type="text" class="form-control tb-metr" name="author' + id + '" id="author' + id + '" size="50" placeholder="Author ' + id + '"/>' +
+                '</div>'
+            );
+            $('#del_auth').css('visibility','visible');
+        });
+        $('#del_auth').click(function () {
+            if ($('.input-group').length < 4){
+                return false;
+            }
+            else if ($('.input-group').length < 5) {
+                $('#del_auth').css('visibility','hidden');
+            }
+            $('.input-group:last').remove();
+        });
+    });
+</script>
+{% endblock %}

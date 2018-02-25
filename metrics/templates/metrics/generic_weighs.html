@@ -17,7 +17,12 @@
                         <form method="post" class="form-inline" action="{% url 'metrics:'|add:item.metric_name|add:'_add'%}">
                         {% csrf_token %}
                             <div class="form-group row">
-                                <div class="col-xs-8">
+                                <div class="col-xs-1">
+                                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#calendar_modal">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </button>
+                                </div>
+                                <div class="col-xs-7">
         {% if item.fields %}
                                     <input type="text" class="form-control tb-metr" name="metric">
         {% endif %}
@@ -28,6 +33,31 @@
                                 </div>
                                 <div class="col-xs-1"></div>
                             </div>
+                            <!--Modal for calendar-->
+                            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="calendar_modal">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="glyphicon glyphicon-calendar"></span> Date of input
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div class="input-group" id="datetimepicker2">
+                                                    <input type="text" class="form-control" name="date"/>
+                                                    <span class="input-group-addon">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {{ ff }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of modal for calendar-->
                         </form>
     {% endif %}
                     </div>

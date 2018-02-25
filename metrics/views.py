@@ -2,6 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.core.urlresolvers import reverse
+from datetime import datetime
+
+from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
 
 from index import models as index_mod
 from . import models, classes_for_templ
@@ -137,18 +141,22 @@ def f_weighs_del(request):
 
 ##Fitness
 def f_generic_fitness(request):
+    gg = datetime.strptime('2018-02-23', '%Y-%m-%d').date()
     caption = models.Fitness._meta.verbose_name  # Name of metric
-    cap_icon = 'fa fa-universal-access' # caption icon
+    cap_icon = 'fa fa-universal-access' #caption icon
     TemplateMetrics = []
     for human in index_mod.Human.objects.all():
         TemplateMetrics.append(classes_for_templ.TemplateWeigh(human,human.fitness_set))
 
-    context = {'user_obj': request.user, 'caption':caption, 'cap_icon':cap_icon, 'TemplateMetrics':TemplateMetrics,}
+    context = {'user_obj': request.user, 'caption':caption, 'cap_icon':cap_icon, 'TemplateMetrics':TemplateMetrics, 'ff':gg}
     return render(request, 'metrics/generic_fitness_chart.html', context)
 #Добавить зарядку
 def f_fitness_add(request):
     human = get_object_or_404(index_mod.Human, pk=request.POST['human'])
-    human.fitness_set.create(m_date=timezone.now())
+    if(request.POST['date']):
+        human.fitness_set.create(m_date=datetime.strptime(request.POST['date'], '%d.%m.%Y').date())
+    else:
+        human.fitness_set.create(m_date=timezone.now())
     return HttpResponseRedirect(reverse('metrics:generic_fitness'))
 #Удалить зарядку
 def f_fitness_dell(request):
